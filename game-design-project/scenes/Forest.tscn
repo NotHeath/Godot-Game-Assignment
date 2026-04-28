@@ -1,0 +1,94 @@
+[gd_scene format=3 uid="uid://db5siwocyx2s8"]
+
+[ext_resource type="Texture2D" uid="uid://dvl7dfjwepyi" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0009_2.png" id="2_hqukv"]
+[ext_resource type="Texture2D" uid="uid://5es0be385bb5" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0008_3.png" id="3_2qkej"]
+[ext_resource type="Texture2D" uid="uid://dlhrw45lc2oho" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0007_Lights.png" id="4_u7iwk"]
+[ext_resource type="Texture2D" uid="uid://d36fif5caub0v" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0006_4.png" id="5_vfsgj"]
+[ext_resource type="Texture2D" uid="uid://mv8vie4kotdj" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0005_5.png" id="6_vatuu"]
+[ext_resource type="Texture2D" uid="uid://njbwdbko08vm" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0004_Lights.png" id="7_onn2w"]
+[ext_resource type="Texture2D" uid="uid://ciggq6lnd0ny3" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0003_6.png" id="8_r1wi6"]
+[ext_resource type="Texture2D" uid="uid://b38uvnynhgk6h" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0002_7.png" id="9_cu2fu"]
+[ext_resource type="Texture2D" uid="uid://cjvtw57sq8ikp" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0001_8.png" id="10_l4101"]
+[ext_resource type="Texture2D" uid="uid://cp7j3vjd8i3ho" path="res://assets/Free Pixel Art Forest/PNG/Background layers/Layer_0000_9.png" id="11_gsjta"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6w704"]
+load_path = "res://.godot/imported/Layer_0011_0.png-c225faf9e09d1ba77db90ae9eaf53a0c.ctex"
+
+[node name="Forest" type="Parallax2D" unique_id=1291285546]
+
+[node name="Layer1" type="Parallax2D" parent="." unique_id=2113804690]
+scroll_scale = Vector2(0.1, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer1" unique_id=458360526]
+texture = SubResource("CompressedTexture2D_6w704")
+
+[node name="Layer2" type="Parallax2D" parent="." unique_id=585161620]
+scroll_scale = Vector2(0.2, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer2" unique_id=916881075]
+texture = ExtResource("2_hqukv")
+
+[node name="Layer3" type="Parallax2D" parent="." unique_id=1120231712]
+scroll_scale = Vector2(0.4, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer3" unique_id=682840549]
+texture = ExtResource("3_2qkej")
+
+[node name="Layer4" type="Parallax2D" parent="." unique_id=394862867]
+scroll_scale = Vector2(0.45, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer4" unique_id=1050830616]
+texture = ExtResource("4_u7iwk")
+
+[node name="Layer5" type="Parallax2D" parent="." unique_id=1519036493]
+scroll_scale = Vector2(0.5, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer5" unique_id=742564576]
+texture = ExtResource("5_vfsgj")
+
+[node name="Layer6" type="Parallax2D" parent="." unique_id=1374763401]
+scroll_scale = Vector2(0.6, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer6" unique_id=413629697]
+texture = ExtResource("6_vatuu")
+
+[node name="Layer7" type="Parallax2D" parent="." unique_id=530828164]
+scroll_scale = Vector2(0.7, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer7" unique_id=413127984]
+texture = ExtResource("7_onn2w")
+
+[node name="Layer8" type="Parallax2D" parent="." unique_id=1496039895]
+scroll_scale = Vector2(0.8, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer8" unique_id=458855783]
+texture = ExtResource("8_r1wi6")
+
+[node name="Layer9" type="Parallax2D" parent="." unique_id=162802257]
+scroll_scale = Vector2(0.9, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer9" unique_id=1429731964]
+texture = ExtResource("9_cu2fu")
+
+[node name="Layer10" type="Parallax2D" parent="." unique_id=1931621243]
+scroll_scale = Vector2(0.95, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer10" unique_id=1832221098]
+texture = ExtResource("10_l4101")
+
+[node name="Layer11" type="Parallax2D" parent="." unique_id=352275434]
+scroll_scale = Vector2(1, 0)
+repeat_size = Vector2(928, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="Layer11" unique_id=1172852304]
+texture = ExtResource("11_gsjta")

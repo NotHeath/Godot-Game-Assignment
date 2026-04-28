@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dhxpvdcdhfbqf"]
+
+[ext_resource type="PackedScene" uid="uid://xepcbuckfliu" path="res://scenes/Character.tscn" id="1_1bxvr"]
+[ext_resource type="PackedScene" uid="uid://db5siwocyx2s8" path="res://scenes/Forest.tscn" id="2_m7djw"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1bxvr"]
+
+[node name="Root" type="Node2D" unique_id=1370124530]
+
+[node name="Character" parent="." unique_id=316540146 instance=ExtResource("1_1bxvr")]
+z_index = 15
+position = Vector2(63, 46)
+
+[node name="Camera2D" type="Camera2D" parent="Character" unique_id=1099416041]
+zoom = Vector2(2, 2)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1606378166]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=178438596]
+position = Vector2(-1, -1)
+shape = SubResource("WorldBoundaryShape2D_1bxvr")
+
+[node name="Forest" parent="." unique_id=1291285546 instance=ExtResource("2_m7djw")]
