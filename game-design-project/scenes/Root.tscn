@@ -32,6 +32,25 @@ offset_bottom = 31.0
 grow_horizontal = 0
 text = "Autowalk: OFF"
 
+[node name="reset label" type="Label" parent="Character/Camera2D/CanvasLayer" unique_id=1412980314]
+offset_right = 131.0
+offset_bottom = 23.0
+text = "[P] Back to Menu"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="counter" type="Label" parent="Character/Camera2D/CanvasLayer" unique_id=1132434668]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "Distance: 0m"
+horizontal_alignment = 1
+
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1606378166]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=178438596]

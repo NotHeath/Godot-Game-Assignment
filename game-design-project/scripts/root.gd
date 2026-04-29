@@ -1,11 +1,17 @@
 extends Node2D
 
+@onready var counter = $Character/Camera2D/CanvasLayer/counter
+@onready var player = $Character
+var startpoint: float = 0.0
+
 # Ideas: Adding pause menu, adding an autowalking button
+# Update: Added counter, reset (instead of pause), and autowalking button
 
 var currentbackground = null # Holds the currently loaded background
 
 func _ready() -> void:
 	var chosen = Global.selected_theme
+	startpoint = global_position.x
 	
 	if chosen != "":
 		load_background(chosen)
@@ -16,6 +22,26 @@ func _ready() -> void:
 			Mountain_loop()
 		elif chosen == "valley":
 			Valley_loop()
+
+# Runs updates contiuously
+func _process(delta: float) -> void:
+	update_counter()
+
+func update_counter():
+	# New Learnings: abs() - Calculates both left and right travel movement.
+	var travel_distance = abs(player.global_position.x - startpoint)
+	var meters = int(travel_distance / 100) # turns "cm" into "m"
+	counter.text = "Distance: " + str(meters) + "m"
+
+# Function to bring player back to meny with reset key (P)
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset"):
+		Global.selected_theme = ""
+		Global.auto_walk = false
+		Global.is_moving = false
+		
+		get_tree().change_scene_to_file("res://scenes/main_men.tscn")
+
 
 # Connect this from the Button's "pressed()" signal in the Node tab
 func _on_autowalk_pressed() -> void:
@@ -46,8 +72,7 @@ func load_background(name: String) -> void:
 	move_child(currentbackground, 0)
 
 
-
-# Music Management (Pulled off of MIDI Lab)
+# Music Management (Pulled off of my MIDI Lab)
 
 # ─── Instrument and Note ─────────────────────────────────────────────────────
 # Send a PROGRAM_CHANGE message to swap instrument on a channel
