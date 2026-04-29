@@ -1,0 +1,510 @@
+[33mcommit f175fc74ce3066ad06b28bc35d4e968eebcd0f54[m
+Author: Taban Heath <tabanheath@proton.me>
+Date:   Wed Apr 29 15:40:55 2026 +0100
+
+    Tweaked the MIDI to work, added movement based audio input lines, fixed the backgrounds not loading
+
+ game-design-project/LICENSE.txt                                                       |   19 [32m+[m
+ game-design-project/TestScene.gd.uid                                                  |    1 [32m+[m
+ game-design-project/addons/midi/ADSR.gd                                               |  215 [32m++++++++[m
+ game-design-project/addons/midi/ADSR.gd.uid                                           |    1 [32m+[m
+ game-design-project/addons/midi/ADSR.tscn                                             |    8 [32m+[m
+ game-design-project/addons/midi/Bank.gd                                               |  534 [32m+++++++++++++++++++[m
+ game-design-project/addons/midi/Bank.gd.uid                                           |    1 [32m+[m
+ game-design-project/addons/midi/GMP.gd                                                |   11 [32m+[m
+ game-design-project/addons/midi/GMP.gd.uid                                            |    1 [32m+[m
+ game-design-project/addons/midi/MidiPlayer.gd                                         | 1131 [32m++++++++++++++++++++++++++++++++++++++++[m
+ game-design-project/addons/midi/MidiPlayer.gd.uid                                     |    1 [32m+[m
+ game-design-project/addons/midi/MidiPlayer.tscn                                       |    6 [32m+[m
+ game-design-project/addons/midi/SMF.gd                                                |  902 [32m++++++++++++++++++++++++++++++++[m
+ game-design-project/addons/midi/SMF.gd.uid                                            |    1 [32m+[m
+ game-design-project/addons/midi/SoundFont.gd                                          |  522 [32m+++++++++++++++++++[m
+ game-design-project/addons/midi/SoundFont.gd.uid                                      |    1 [32m+[m
+ game-design-project/addons/midi/Utility.gd                                            |   75 [32m+++[m
+ game-design-project/addons/midi/Utility.gd.uid                                        |    1 [32m+[m
+ game-design-project/addons/midi/icon.png                                              |  Bin [31m0[m -> [32m924[m bytes
+ game-design-project/addons/midi/icon.png.import                                       |   40 [32m++[m
+ game-design-project/addons/midi/plugin.cfg                                            |    6 [32m+[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0000_9.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0001_8.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0002_7.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0003_6.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0004_Lights.png.import   |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0005_5.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0006_4.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0007_Lights.png.import   |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0008_3.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0009_2.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0010_1.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/PNG/Background layers/Layer_0011_0.png.import        |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Forest/Preview/Background.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/You may also like/Pixel Art Forest.png.import        |   40 [32m++[m
+ .../You may also like/Pixel Art Plataformer Painted Style.png.import                  |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/You may also like/Pixel Art Runner.png.import        |   40 [32m++[m
+ .../assets/Free Pixel Art Forest/You may also like/Pixel Art Snowy Forest.png.import  |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 01.png.import          |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 02.png.import          |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 03.png.import          |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 04.png.import          |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 05.png.import          |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/PNG/Hills Layer 06.png.import          |   40 [32m++[m
+ .../assets/Free Pixel Art Hill/PREVIEWS/Hills Free (update 3.0).png.import            |   40 [32m++[m
+ game-design-project/assets/Free Pixel Art Hill/TimGM6mb.sf2                           |  Bin [31m0[m -> [32m5969788[m bytes
+ .../assets/Free Pixel Art Hill/You may also like/Pixel Art Forest.png.import          |   40 [32m++[m
+ .../You may also like/Pixel Art Plataformer Painted Style.png.import                  |   40 [32m++[m
+ .../assets/Free Pixel Art Hill/You may also like/Pixel Art Runner.png.import          |   40 [32m++[m
+ .../assets/Free Pixel Art Hill/You may also like/Pixel Art Snowy Forest.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack.png               |  Bin [31m0[m -> [32m1730[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack2.png              |  Bin [31m0[m -> [32m2012[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack2.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack2NoMovement.png    |  Bin [31m0[m -> [32m2012[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Attack2NoMovement.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_AttackCombo.png          |  Bin [31m0[m -> [32m3463[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_AttackCombo.png.import   |   40 [32m++[m
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_AttackComboNoMovement.png       |  Bin [31m0[m -> [32m3460[m bytes
+ .../Colour1/NoOutline/120x80_PNGSheets/_AttackComboNoMovement.png.import              |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_AttackNoMovement.png     |  Bin [31m0[m -> [32m1734[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_AttackNoMovement.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Crouch.png               |  Bin [31m0[m -> [32m484[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Crouch.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchAttack.png         |  Bin [31m0[m -> [32m1259[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchAttack.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchFull.png           |  Bin [31m0[m -> [32m769[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchFull.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchTransition.png     |  Bin [31m0[m -> [32m510[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchTransition.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchWalk.png           |  Bin [31m0[m -> [32m1514[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_CrouchWalk.png.import    |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Dash.png |  Bin [31m0[m -> [32m692[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Dash.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Death.png                |  Bin [31m0[m -> [32m3155[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Death.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_DeathNoMovement.png      |  Bin [31m0[m -> [32m3155[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_DeathNoMovement.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Fall.png |  Bin [31m0[m -> [32m834[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Fall.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Hit.png  |  Bin [31m0[m -> [32m553[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Hit.png.import           |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Idle.png |  Bin [31m0[m -> [32m1524[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Idle.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Jump.png |  Bin [31m0[m -> [32m815[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Jump.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_JumpFallInbetween.png    |  Bin [31m0[m -> [32m855[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_JumpFallInbetween.png.import    |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Roll.png |  Bin [31m0[m -> [32m3925[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Roll.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Run.png  |  Bin [31m0[m -> [32m3134[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Run.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Slide.png                |  Bin [31m0[m -> [32m552[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_Slide.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideFull.png            |  Bin [31m0[m -> [32m1220[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideFull.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideTransitionEnd.png   |  Bin [31m0[m -> [32m489[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideTransitionEnd.png.import   |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideTransitionStart.png |  Bin [31m0[m -> [32m522[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_SlideTransitionStart.png.import |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_TurnAround.png           |  Bin [31m0[m -> [32m1219[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_TurnAround.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallClimb.png            |  Bin [31m0[m -> [32m2364[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallClimb.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallClimbNoMovement.png  |  Bin [31m0[m -> [32m2221[m bytes
+ .../FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallClimbNoMovement.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallHang.png             |  Bin [31m0[m -> [32m448[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallHang.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallSlide.png            |  Bin [31m0[m -> [32m791[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_PNGSheets/_WallSlide.png.import     |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Attack.gif   |  Bin [31m0[m -> [32m5257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Attack2.gif  |  Bin [31m0[m -> [32m7505[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Attack2NoMovement.gif        |  Bin [31m0[m -> [32m7503[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__AttackCombo2hit.gif          |  Bin [31m0[m -> [32m12729[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__AttackComboNoMovement.gif    |  Bin [31m0[m -> [32m12727[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__AttackNoMovement.gif         |  Bin [31m0[m -> [32m5257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Crouch.gif   |  Bin [31m0[m -> [32m1188[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__CrouchAll.gif                |  Bin [31m0[m -> [32m3532[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__CrouchAttack.gif             |  Bin [31m0[m -> [32m4767[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__CrouchTransition.gif         |  Bin [31m0[m -> [32m1205[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__CrouchWalk.gif               |  Bin [31m0[m -> [32m9211[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Dash.gif     |  Bin [31m0[m -> [32m2433[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Death.gif    |  Bin [31m0[m -> [32m11747[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__DeathNoMovement.gif          |  Bin [31m0[m -> [32m11745[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Fall.gif     |  Bin [31m0[m -> [32m3644[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Hit.gif      |  Bin [31m0[m -> [32m1235[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Idle.gif     |  Bin [31m0[m -> [32m12001[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Jump.gif     |  Bin [31m0[m -> [32m3604[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__JumpFallInbetween.gif        |  Bin [31m0[m -> [32m2409[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Roll.gif     |  Bin [31m0[m -> [32m13793[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Run.gif      |  Bin [31m0[m -> [32m11753[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__Slide.gif    |  Bin [31m0[m -> [32m2331[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__SlideAll.gif |  Bin [31m0[m -> [32m4654[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__SlideTransitionEnd.gif       |  Bin [31m0[m -> [32m1186[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__SlideTransitionStart.gif     |  Bin [31m0[m -> [32m1203[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__TurnAround.gif               |  Bin [31m0[m -> [32m3608[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__WallClimb.gif                |  Bin [31m0[m -> [32m8122[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__WallClimbNoMovement.gif      |  Bin [31m0[m -> [32m8002[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__WallHang.gif |  Bin [31m0[m -> [32m1179[m bytes
+ .../assets/FreeKnight_v1/Colour1/NoOutline/120x80_gifs/__WallSlide.gif                |  Bin [31m0[m -> [32m3542[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack.png |  Bin [31m0[m -> [32m1936[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack2.png                |  Bin [31m0[m -> [32m2222[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack2.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack2NoMovement.png      |  Bin [31m0[m -> [32m2227[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Attack2NoMovement.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackCombo2hit.png        |  Bin [31m0[m -> [32m3868[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackCombo2hit.png.import |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackComboNoMovement.png  |  Bin [31m0[m -> [32m3866[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackComboNoMovement.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackNoMovement.png       |  Bin [31m0[m -> [32m1927[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_AttackNoMovement.png.import       |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Crouch.png |  Bin [31m0[m -> [32m501[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Crouch.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchAttack.png           |  Bin [31m0[m -> [32m1434[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchAttack.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchFull.png             |  Bin [31m0[m -> [32m802[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchFull.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchTransition.png       |  Bin [31m0[m -> [32m526[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchTransition.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchWalk.png             |  Bin [31m0[m -> [32m1551[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_CrouchWalk.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Dash.png   |  Bin [31m0[m -> [32m723[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Dash.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Death.png  |  Bin [31m0[m -> [32m3412[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Death.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_DeathNoMovement.png        |  Bin [31m0[m -> [32m3419[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_DeathNoMovement.png.import |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Fall.png   |  Bin [31m0[m -> [32m882[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Fall.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Hit.png    |  Bin [31m0[m -> [32m574[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Hit.png.import             |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png   |  Bin [31m0[m -> [32m1576[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Idle.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Jump.png   |  Bin [31m0[m -> [32m831[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Jump.png.import            |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_JumpFallInbetween.png      |  Bin [31m0[m -> [32m877[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_JumpFallInbetween.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Roll.png   |  Bin [31m0[m -> [32m4169[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Roll.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Run.png    |  Bin [31m0[m -> [32m3258[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Run.png.import             |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Slide.png  |  Bin [31m0[m -> [32m570[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_Slide.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideFull.png              |  Bin [31m0[m -> [32m1285[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideFull.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideTransitionEnd.png     |  Bin [31m0[m -> [32m505[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideTransitionEnd.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideTransitionStart.png   |  Bin [31m0[m -> [32m547[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_SlideTransitionStart.png.import   |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_TurnAround.png             |  Bin [31m0[m -> [32m1257[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_TurnAround.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallClimb.png              |  Bin [31m0[m -> [32m2491[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallClimb.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallClimbNoMovement.png    |  Bin [31m0[m -> [32m2317[m bytes
+ .../FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallClimbNoMovement.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallHang.png               |  Bin [31m0[m -> [32m464[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallHang.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallSlide.png              |  Bin [31m0[m -> [32m817[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_PNGSheets/_WallSlide.png.import       |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Attack.gif     |  Bin [31m0[m -> [32m5494[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Attack2.gif    |  Bin [31m0[m -> [32m7849[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Attack2NoMovement.gif          |  Bin [31m0[m -> [32m7855[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__AttackCombo2hit.gif            |  Bin [31m0[m -> [32m13310[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__AttackComboNoMovement.gif      |  Bin [31m0[m -> [32m13330[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__AttackNoMovement.gif           |  Bin [31m0[m -> [32m5508[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Crouch.gif     |  Bin [31m0[m -> [32m1209[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__CrouchAll.gif  |  Bin [31m0[m -> [32m3609[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__CrouchAttack.gif               |  Bin [31m0[m -> [32m4967[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__CrouchTransition.gif           |  Bin [31m0[m -> [32m1233[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__CrouchWalk.gif |  Bin [31m0[m -> [32m9407[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Dash.gif       |  Bin [31m0[m -> [32m2491[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Death.gif      |  Bin [31m0[m -> [32m12006[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__DeathNoMovement.gif            |  Bin [31m0[m -> [32m12002[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Fall.gif       |  Bin [31m0[m -> [32m3735[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Hit.gif        |  Bin [31m0[m -> [32m1271[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Idle.gif       |  Bin [31m0[m -> [32m12257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Jump.gif       |  Bin [31m0[m -> [32m3707[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__JumpFallInbetween.gif          |  Bin [31m0[m -> [32m2473[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Roll.gif       |  Bin [31m0[m -> [32m14105[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Run.gif        |  Bin [31m0[m -> [32m12057[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__Slide.gif      |  Bin [31m0[m -> [32m2370[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__SlideAll.gif   |  Bin [31m0[m -> [32m4750[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__SlideTransitionEnd.gif         |  Bin [31m0[m -> [32m1216[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__SlideTransitionStart.gif       |  Bin [31m0[m -> [32m1230[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__TurnAround.gif |  Bin [31m0[m -> [32m3677[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__WallClimb.gif  |  Bin [31m0[m -> [32m8296[m bytes
+ .../assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__WallClimbNoMovement.gif        |  Bin [31m0[m -> [32m8176[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__WallHang.gif   |  Bin [31m0[m -> [32m1201[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour1/Outline/120x80_gifs/__WallSlide.gif  |  Bin [31m0[m -> [32m3620[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack.png               |  Bin [31m0[m -> [32m1741[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack2.png              |  Bin [31m0[m -> [32m2025[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack2.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack2NoMovement.png    |  Bin [31m0[m -> [32m2024[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Attack2NoMovement.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_AttackCombo.png          |  Bin [31m0[m -> [32m3482[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_AttackCombo.png.import   |   40 [32m++[m
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_AttackComboNoMovement.png       |  Bin [31m0[m -> [32m3478[m bytes
+ .../Colour2/NoOutline/120x80_PNGSheets/_AttackComboNoMovement.png.import              |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_AttackNoMovement.png     |  Bin [31m0[m -> [32m1747[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_AttackNoMovement.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Crouch.png               |  Bin [31m0[m -> [32m496[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Crouch.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchAll.png            |  Bin [31m0[m -> [32m780[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchAll.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchAttack.png         |  Bin [31m0[m -> [32m1267[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchAttack.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchTransition.png     |  Bin [31m0[m -> [32m516[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchTransition.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchWalk.png           |  Bin [31m0[m -> [32m1529[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_CrouchWalk.png.import    |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Dash.png |  Bin [31m0[m -> [32m701[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Dash.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Death.png                |  Bin [31m0[m -> [32m3195[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Death.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_DeathNoMovement.png      |  Bin [31m0[m -> [32m3198[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_DeathNoMovement.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Fall.png |  Bin [31m0[m -> [32m848[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Fall.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Hit.png  |  Bin [31m0[m -> [32m560[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Hit.png.import           |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Idle.png |  Bin [31m0[m -> [32m1537[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Idle.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Jump.png |  Bin [31m0[m -> [32m829[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Jump.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_JumpFallInbetween.png    |  Bin [31m0[m -> [32m868[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_JumpFallInbetween.png.import    |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Roll.png |  Bin [31m0[m -> [32m4000[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Roll.png.import          |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Run.png  |  Bin [31m0[m -> [32m3168[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Run.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Slide.png                |  Bin [31m0[m -> [32m566[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_Slide.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideAll.png             |  Bin [31m0[m -> [32m1237[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideAll.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideTransitionEnd.png   |  Bin [31m0[m -> [32m498[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideTransitionEnd.png.import   |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideTransitionStart.png |  Bin [31m0[m -> [32m529[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_SlideTransitionStart.png.import |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_TurnAround.png           |  Bin [31m0[m -> [32m1231[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_TurnAround.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallClimb.png            |  Bin [31m0[m -> [32m2400[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallClimb.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallClimbNoMovement.png  |  Bin [31m0[m -> [32m2253[m bytes
+ .../FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallClimbNoMovement.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallHang.png             |  Bin [31m0[m -> [32m458[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallHang.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallSlide.png            |  Bin [31m0[m -> [32m810[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_PNGSheets/_WallSlide.png.import     |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Attack.gif   |  Bin [31m0[m -> [32m5257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Attack2.gif  |  Bin [31m0[m -> [32m7505[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Attack2NoMovement.gif        |  Bin [31m0[m -> [32m7503[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__AttackCombo2hit.gif          |  Bin [31m0[m -> [32m12729[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__AttackComboNoMovement.gif    |  Bin [31m0[m -> [32m12727[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__AttackNoMovement.gif         |  Bin [31m0[m -> [32m5257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Crouch.gif   |  Bin [31m0[m -> [32m1188[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__CrouchAll.gif                |  Bin [31m0[m -> [32m3532[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__CrouchAttack.gif             |  Bin [31m0[m -> [32m4767[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__CrouchTransition.gif         |  Bin [31m0[m -> [32m1205[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__CrouchWalk.gif               |  Bin [31m0[m -> [32m9211[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Dash.gif     |  Bin [31m0[m -> [32m2433[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Death.gif    |  Bin [31m0[m -> [32m11747[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__DeathNoMovement.gif          |  Bin [31m0[m -> [32m11745[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Fall.gif     |  Bin [31m0[m -> [32m3644[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Hit.gif      |  Bin [31m0[m -> [32m1235[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Idle.gif     |  Bin [31m0[m -> [32m12001[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Jump.gif     |  Bin [31m0[m -> [32m3604[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__JumpFallInbetween.gif        |  Bin [31m0[m -> [32m2409[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Roll.gif     |  Bin [31m0[m -> [32m13793[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Run.gif      |  Bin [31m0[m -> [32m11753[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__Slide.gif    |  Bin [31m0[m -> [32m2331[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__SlideAll.gif |  Bin [31m0[m -> [32m4654[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__SlideTransitionEnd.gif       |  Bin [31m0[m -> [32m1186[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__SlideTransitionStart.gif     |  Bin [31m0[m -> [32m1203[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__TurnAround.gif               |  Bin [31m0[m -> [32m3608[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__WallClimb.gif                |  Bin [31m0[m -> [32m8122[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__WallClimbNoMovement.gif      |  Bin [31m0[m -> [32m8002[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__WallHang.gif |  Bin [31m0[m -> [32m1179[m bytes
+ .../assets/FreeKnight_v1/Colour2/NoOutline/120x80_gifs/__WallSlide.gif                |  Bin [31m0[m -> [32m3542[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack.png |  Bin [31m0[m -> [32m1948[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack2.png                |  Bin [31m0[m -> [32m2234[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack2.png.import         |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack2NoMovement.png      |  Bin [31m0[m -> [32m2241[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Attack2NoMovement.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackCombo.png            |  Bin [31m0[m -> [32m3884[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackCombo.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackComboNoMovement.png  |  Bin [31m0[m -> [32m3884[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackComboNoMovement.png.import  |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackNoMovement.png       |  Bin [31m0[m -> [32m1938[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_AttackNoMovement.png.import       |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Crouch.png |  Bin [31m0[m -> [32m511[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Crouch.png.import          |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchAll.png              |  Bin [31m0[m -> [32m813[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchAll.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchAttack.png           |  Bin [31m0[m -> [32m1444[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchAttack.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchTransition.png       |  Bin [31m0[m -> [32m537[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchTransition.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchWalk.png             |  Bin [31m0[m -> [32m1566[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_CrouchWalk.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Dash.png   |  Bin [31m0[m -> [32m732[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Dash.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Death.png  |  Bin [31m0[m -> [32m3442[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Death.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_DeathNoMovement.png        |  Bin [31m0[m -> [32m3450[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_DeathNoMovement.png.import |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Fall.png   |  Bin [31m0[m -> [32m895[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Fall.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Hit.png    |  Bin [31m0[m -> [32m579[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Hit.png.import             |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png   |  Bin [31m0[m -> [32m1586[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Idle.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Jump.png   |  Bin [31m0[m -> [32m840[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Jump.png.import            |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_JumpFallInbetween.png      |  Bin [31m0[m -> [32m887[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_JumpFallInbetween.png.import      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Roll.png   |  Bin [31m0[m -> [32m4209[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Roll.png.import            |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Run.png    |  Bin [31m0[m -> [32m3289[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Run.png.import             |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Slide.png  |  Bin [31m0[m -> [32m580[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_Slide.png.import           |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideAll.png               |  Bin [31m0[m -> [32m1298[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideAll.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideTransitionEnd.png     |  Bin [31m0[m -> [32m513[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideTransitionEnd.png.import     |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideTransitionStart.png   |  Bin [31m0[m -> [32m563[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_SlideTransitionStart.png.import   |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_TurnAround.png             |  Bin [31m0[m -> [32m1268[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_TurnAround.png.import      |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimb.png              |  Bin [31m0[m -> [32m2514[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimb.png.import       |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimbNoMovement.png    |  Bin [31m0[m -> [32m2345[m bytes
+ .../FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallClimbNoMovement.png.import    |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallHang.png               |  Bin [31m0[m -> [32m471[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallHang.png.import        |   40 [32m++[m
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallSlide.png              |  Bin [31m0[m -> [32m829[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_PNGSheets/_WallSlide.png.import       |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Attack.gif     |  Bin [31m0[m -> [32m5494[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Attack2.gif    |  Bin [31m0[m -> [32m7849[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Attack2NoMovement.gif          |  Bin [31m0[m -> [32m7855[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__AttackCombo2hit.gif            |  Bin [31m0[m -> [32m13310[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__AttackComboNoMovement.gif      |  Bin [31m0[m -> [32m13330[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__AttackNoMovement.gif           |  Bin [31m0[m -> [32m5508[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Crouch.gif     |  Bin [31m0[m -> [32m1209[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__CrouchAll.gif  |  Bin [31m0[m -> [32m3609[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__CrouchAttack.gif               |  Bin [31m0[m -> [32m4967[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__CrouchTransition.gif           |  Bin [31m0[m -> [32m1233[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__CrouchWalk.gif |  Bin [31m0[m -> [32m9407[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Dash.gif       |  Bin [31m0[m -> [32m2491[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Death.gif      |  Bin [31m0[m -> [32m12006[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__DeathNoMovement.gif            |  Bin [31m0[m -> [32m12002[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Fall.gif       |  Bin [31m0[m -> [32m3735[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Hit.gif        |  Bin [31m0[m -> [32m1271[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Idle.gif       |  Bin [31m0[m -> [32m12257[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Jump.gif       |  Bin [31m0[m -> [32m3707[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__JumpFallInbetween.gif          |  Bin [31m0[m -> [32m2473[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Roll.gif       |  Bin [31m0[m -> [32m14105[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Run.gif        |  Bin [31m0[m -> [32m12057[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__Slide.gif      |  Bin [31m0[m -> [32m2370[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__SlideAll.gif   |  Bin [31m0[m -> [32m4750[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__SlideTransitionEnd.gif         |  Bin [31m0[m -> [32m1216[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__SlideTransitionStart.gif       |  Bin [31m0[m -> [32m1230[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__TurnAround.gif |  Bin [31m0[m -> [32m3677[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__WallClimb.gif  |  Bin [31m0[m -> [32m8296[m bytes
+ .../assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__WallClimbNoMovement.gif        |  Bin [31m0[m -> [32m8176[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__WallHang.gif   |  Bin [31m0[m -> [32m1201[m bytes
+ game-design-project/assets/FreeKnight_v1/Colour2/Outline/120x80_gifs/__WallSlide.gif  |  Bin [31m0[m -> [32m3620[m bytes
+ game-design-project/assets/FreeKnight_v1/Comparison2x.png                             |  Bin [31m0[m -> [32m2292[m bytes
+ game-design-project/assets/FreeKnight_v1/Comparison2x.png.import                      |   40 [32m++[m
+ game-design-project/assets/FreeKnight_v1/PromoAnimated2x.gif                          |  Bin [31m0[m -> [32m71515[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/cloud_lonely.png       |  Bin [31m0[m -> [32m1101[m bytes
+ .../Glacial-mountains-parallax-background_vnitti/Layers/cloud_lonely.png.import       |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_bg.png          |  Bin [31m0[m -> [32m2663[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_bg.png.import   |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_1.png        |  Bin [31m0[m -> [32m1992[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_1.png.import |   40 [32m++[m
+ .../Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_1_lightened.png     |  Bin [31m0[m -> [32m1860[m bytes
+ .../Layers/clouds_mg_1_lightened.png.import                                           |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_2.png        |  Bin [31m0[m -> [32m1449[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_2.png.import |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_3.png        |  Bin [31m0[m -> [32m734[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_3.png.import |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/glacial_mountains.png  |  Bin [31m0[m -> [32m5066[m bytes
+ .../Glacial-mountains-parallax-background_vnitti/Layers/glacial_mountains.png.import  |   40 [32m++[m
+ .../Layers/glacial_mountains_lightened.png                                            |  Bin [31m0[m -> [32m5129[m bytes
+ .../Layers/glacial_mountains_lightened.png.import                                     |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/sky.png                |  Bin [31m0[m -> [32m846[m bytes
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/sky.png.import         |   40 [32m++[m
+ .../assets/Glacial-mountains-parallax-background_vnitti/Layers/sky_lightened.png      |  Bin [31m0[m -> [32m845[m bytes
+ .../Glacial-mountains-parallax-background_vnitti/Layers/sky_lightened.png.import      |   40 [32m++[m
+ game-design-project/assets/Layer_0009_2.png                                           |  Bin [31m0[m -> [32m8043[m bytes
+ game-design-project/assets/Layer_0009_2.png.import                                    |   40 [32m++[m
+ game-design-project/assets/TimGM6mb.sf2                                               |  Bin [31m0[m -> [32m5969788[m bytes
+ .../Arrow(Projectile)/Arrow01(100x100).png.import                                     |   40 [32m++[m
+ .../Arrow(Projectile)/Arrow01(32x32).png.import                                       |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Attack01.png.import                  |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Attack02.png.import                  |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Death.png.import                     |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Hurt.png.import                      |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Idle.png.import                      |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc-Walk.png.import                      |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc with shadows/Orc.png.import                           |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc(Split Effects)/Orc-attack01_Effect.png.import         |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc(Split Effects)/Orc-attack02_Effect.png.import         |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc(Split Effects)/Orc.png.import                         |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Attack01.png.import                               |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Attack02.png.import                               |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Death.png.import                                  |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Hurt.png.import                                   |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Idle.png.import                                   |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc-Walk.png.import                                   |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Orc.png.import                                        |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Shadow sprites/Orc-shadow.png.import                  |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Shadow sprites/Orc-shadow_attack02.png.import         |   40 [32m++[m
+ .../Characters(100x100)/Orc/Orc/Shadow sprites/Orc-shadow_death.png.import            |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Arrow(projectile)/Arrow01(100x100).png.import         |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Arrow(projectile)/Arrow01(32x32).png.import           |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Attack01.png.import      |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Attack02.png.import      |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Attack03.png.import      |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Death.png.import         |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Hurt.png.import          |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Idle.png.import          |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier-Walk.png.import          |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier with shadows/Soldier.png.import               |   40 [32m++[m
+ .../Soldier/Soldier(Split Effects)/Soldier-Attack01_Effect.png.import                 |   40 [32m++[m
+ .../Soldier/Soldier(Split Effects)/Soldier-Attack02_Effect.png.import                 |   40 [32m++[m
+ .../Soldier/Soldier(Split Effects)/Soldier-Attack03_Effect.png.import                 |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier(Split Effects)/Soldier.png.import             |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Shadow sprites/Soldier-Shadow.png.import      |   40 [32m++[m
+ .../Soldier/Soldier/Shadow sprites/Soldier-Shadow_death.png.import                    |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Attack01.png.import                   |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Attack02.png.import                   |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Attack03.png.import                   |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Death.png.import                      |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Hurt.png.import                       |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Idle.png.import                       |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Shadow_attack2.png.import             |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier-Walk.png.import                       |   40 [32m++[m
+ .../Characters(100x100)/Soldier/Soldier/Soldier.png.import                            |   40 [32m++[m
+ game-design-project/assets/mainmen.webp                                               |  Bin [31m0[m -> [32m129390[m bytes
+ game-design-project/assets/mainmen.webp.import                                        |   40 [32m++[m
+ game-design-project/icon.svg (icecream-maker's conflicted copy 2026-04-29).import     |   43 [32m++[m
+ game-design-project/project.godot                                                     |    9 [32m+[m
+ game-design-project/readme.md                                                         |   26 [32m+[m
+ game-design-project/scenes/Character.tscn                                             |  172 [32m++++++[m
+ game-design-project/scenes/Forest.tscn                                                |  105 [32m++++[m
+ game-design-project/scenes/Root.tscn                                                  |   28 [32m+[m
+ game-design-project/scenes/main_men.tscn                                              |   86 [32m+++[m
+ game-design-project/scenes/mountains.tscn                                             |   84 [32m+++[m
+ game-design-project/scenes/valley.tscn                                                |   70 [32m+++[m
+ game-design-project/scripts/Global.gd                                                 |    4 [32m+[m
+ game-design-project/scripts/Global.gd.uid                                             |    1 [32m+[m
+ game-design-project/scripts/character.gd                                              |   25 [32m+[m
+ game-design-project/scripts/character.gd.uid                                          |    1 [32m+[m
+ game-design-project/scripts/global.gd (Case Conflict).uid                             |    1 [32m+[m
+ game-design-project/scripts/main_men.gd                                               |   20 [32m+[m
+ game-design-project/scripts/main_men.gd.uid                                           |    1 [32m+[m
+ game-design-project/scripts/root.gd                                                   |  113 [32m++++[m
+ game-design-project/scripts/root.gd.uid                                               |    1 [32m+[m
+ 503 files changed, 12587 insertions(+)

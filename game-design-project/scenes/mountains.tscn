@@ -9,60 +9,76 @@
 [ext_resource type="Texture2D" uid="uid://btgvfu5pb0jot" path="res://assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_mg_1_lightened.png" id="7_uaqxr"]
 [ext_resource type="Texture2D" uid="uid://csnjst5wpwxxm" path="res://assets/Glacial-mountains-parallax-background_vnitti/Layers/clouds_bg.png" id="8_uihb5"]
 
-[node name="Mountains" type="Parallax2D" unique_id=749090669]
+[node name="mountains" type="Parallax2D" unique_id=749090669]
 
 [node name="Layer1" type="Parallax2D" parent="." unique_id=114745892]
 scroll_scale = Vector2(0.1, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer1" unique_id=1052005641]
+position = Vector2(192, 300)
 texture = ExtResource("1_g6vu3")
 
 [node name="Layer1_5" type="Parallax2D" parent="." unique_id=1792746413]
 scroll_scale = Vector2(0.15, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer1_5" unique_id=1227324251]
+position = Vector2(192, 300)
 texture = ExtResource("8_uihb5")
 
 [node name="Layer2" type="Parallax2D" parent="." unique_id=1038835480]
 scroll_scale = Vector2(0.2, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer2" unique_id=694840322]
+position = Vector2(192, 300)
 texture = ExtResource("2_t6i4l")
 
 [node name="Layer3" type="Parallax2D" parent="." unique_id=1365826394]
 scroll_scale = Vector2(0.3, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer3" unique_id=1672680964]
+position = Vector2(192, 300)
 texture = ExtResource("3_vx7x7")
 
 [node name="Layer4" type="Parallax2D" parent="." unique_id=134936830]
 scroll_scale = Vector2(0.4, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer4" unique_id=1819353983]
+position = Vector2(192, 300)
 texture = ExtResource("4_v3awt")
 
 [node name="Layer5" type="Parallax2D" parent="." unique_id=580022024]
-scroll_scale = Vector2(0.6, 0)
+scroll_scale = Vector2(-0.6, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer5" unique_id=1527016776]
+position = Vector2(192, 300)
 texture = ExtResource("5_qgxv3")
 
 [node name="Layer6" type="Parallax2D" parent="." unique_id=83424027]
 scroll_scale = Vector2(0.7, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer6" unique_id=894088483]
+position = Vector2(192, 300)
 texture = ExtResource("6_te4br")
 
 [node name="Layer7" type="Parallax2D" parent="." unique_id=233000639]
 scroll_scale = Vector2(0.8, 0)
 repeat_size = Vector2(384, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer7" unique_id=1858763008]
+position = Vector2(192, 300)
 texture = ExtResource("7_uaqxr")

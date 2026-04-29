@@ -12,41 +12,59 @@
 [node name="Layer1" type="Parallax2D" parent="." unique_id=767144566]
 scroll_scale = Vector2(0.1, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer1" unique_id=2125201869]
+position = Vector2(0, 120)
 texture = ExtResource("1_a2vvy")
+centered = false
 
 [node name="Layer2" type="Parallax2D" parent="." unique_id=1972861729]
 scroll_scale = Vector2(0.3, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer2" unique_id=1939773254]
+position = Vector2(0, 120)
 texture = ExtResource("2_xecee")
+centered = false
 
 [node name="Layer3" type="Parallax2D" parent="." unique_id=54592730]
 scroll_scale = Vector2(0.5, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer3" unique_id=534118004]
+position = Vector2(0, 120)
 texture = ExtResource("3_m3qr3")
+centered = false
 
 [node name="Layer4" type="Parallax2D" parent="." unique_id=1652080748]
 scroll_scale = Vector2(0.6, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer4" unique_id=536868359]
+position = Vector2(0, 120)
 texture = ExtResource("4_l73gk")
+centered = false
 
 [node name="Layer5" type="Parallax2D" parent="." unique_id=1643948094]
 scroll_scale = Vector2(0.8, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer5" unique_id=709591393]
+position = Vector2(0, 120)
 texture = ExtResource("5_je011")
+centered = false
 
 [node name="Layer6" type="Parallax2D" parent="." unique_id=461411347]
 scroll_scale = Vector2(1, 0)
 repeat_size = Vector2(512, 0)
+repeat_times = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="Layer6" unique_id=551366975]
+position = Vector2(0, 120)
 texture = ExtResource("6_8ppb4")
+centered = false

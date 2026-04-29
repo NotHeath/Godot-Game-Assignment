@@ -1,23 +1,28 @@
 [gd_scene format=3 uid="uid://dhxpvdcdhfbqf"]
 
-[ext_resource type="PackedScene" uid="uid://xepcbuckfliu" path="res://scenes/Character.tscn" id="1_1bxvr"]
-[ext_resource type="PackedScene" uid="uid://db5siwocyx2s8" path="res://scenes/Forest.tscn" id="2_m7djw"]
+[ext_resource type="PackedScene" uid="uid://e8sjl36h03f6" path="res://scenes/Character.tscn" id="1_1bxvr"]
+[ext_resource type="Script" uid="uid://dxrle7q23af17" path="res://scripts/root.gd" id="1_t5xp5"]
+[ext_resource type="Script" uid="uid://bf1vnufu7na6x" path="res://addons/midi/MidiPlayer.gd" id="2_5npxh"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1bxvr"]
 
 [node name="Root" type="Node2D" unique_id=1370124530]
+script = ExtResource("1_t5xp5")
+
+[node name="MidiPlayer" type="Node" parent="." unique_id=1136352294]
+script = ExtResource("2_5npxh")
+soundfont = "res://assets/TimGM6mb.sf2"
+metadata/_custom_type_script = "uid://bf1vnufu7na6x"
 
 [node name="Character" parent="." unique_id=316540146 instance=ExtResource("1_1bxvr")]
-z_index = 15
-position = Vector2(63, 46)
+z_index = 10
+z_as_relative = false
 
 [node name="Camera2D" type="Camera2D" parent="Character" unique_id=1099416041]
-zoom = Vector2(2, 2)
+zoom = Vector2(2.5, 2.5)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1606378166]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=178438596]
 position = Vector2(-1, -1)
 shape = SubResource("WorldBoundaryShape2D_1bxvr")
-
-[node name="Forest" parent="." unique_id=1291285546 instance=ExtResource("2_m7djw")]

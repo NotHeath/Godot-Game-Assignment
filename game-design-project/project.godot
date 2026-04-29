@@ -11,8 +11,17 @@ config_version=5
 [application]
 
 config/name="Game Design Project"
+run/main_scene="uid://b7o24164dkd2b"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://sm2ey618i87m"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/midi/plugin.cfg")
 
 [physics]
 

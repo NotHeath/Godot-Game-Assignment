@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://b7o24164dkd2b"]
+
+[ext_resource type="Texture2D" uid="uid://b26oebwhkvl0f" path="res://assets/mainmen.webp" id="1_sjlna"]
+[ext_resource type="Script" uid="uid://unht7ramgja" path="res://scripts/main_men.gd" id="1_xj5ac"]
+
+[sub_resource type="FontFile" id="FontFile_hkqpp"]
+cache/0/variation_coordinates = {}
+cache/0/face_index = 0
+cache/0/embolden = 0.0
+cache/0/transform = Transform2D(1, 0, 0, 1, 0, 0)
+cache/0/spacing_top = 0
+cache/0/spacing_bottom = 0
+cache/0/spacing_space = 0
+cache/0/spacing_glyph = 0
+cache/0/baseline_offset = 0.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/48/0/ascent = 0.0
+cache/0/48/0/descent = 0.0
+cache/0/48/0/underline_position = 0.0
+cache/0/48/0/underline_thickness = 0.0
+cache/0/48/0/scale = 1.0
+
+[node name="MainMen" type="Control" unique_id=815515812]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_xj5ac")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=667227025]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=572932672]
+modulate = Color(1, 1, 1, 0.3254902)
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_sjlna")
+
+[node name="Label" type="Label" parent="." unique_id=134304976]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 118.0
+offset_right = 1149.0
+offset_bottom = 167.0
+theme_override_fonts/font = SubResource("FontFile_hkqpp")
+theme_override_font_sizes/font_size = 48
+text = "The Walk"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="ForestBtn" type="Button" parent="." unique_id=1117562259]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 247.0
+offset_right = 779.0
+offset_bottom = 647.0
+text = "Forest"
+
+[node name="ValleyBtn" type="Button" parent="." unique_id=1569813025]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 245.0
+offset_right = 396.0
+offset_bottom = 645.0
+text = "Valley
+"
+
+[node name="MontainBtn" type="Button" parent="." unique_id=1818167072]
+layout_mode = 0
+offset_left = 781.0
+offset_top = 249.0
+offset_right = 1147.0
+offset_bottom = 649.0
+text = "Montain"
+
+[connection signal="pressed" from="ForestBtn" to="." method="_on_forest_btn_pressed"]
+[connection signal="pressed" from="ValleyBtn" to="." method="_on_valley_btn_pressed"]
+[connection signal="pressed" from="MontainBtn" to="." method="_on_montain_btn_pressed"]
