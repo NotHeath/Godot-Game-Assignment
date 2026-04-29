@@ -12,6 +12,10 @@ const SPEED = 100.0
 func _physics_process(delta: float) -> void:
 	var direction = Input.get_axis("ui_left", "ui_right")
 
+	# Settin gup the autowalk flags
+	if Global.auto_walk and direction == 0:
+		direction = 1
+
 	if direction != 0:
 		velocity.x = direction * SPEED
 		sprite.play("walking") # Plays the animation

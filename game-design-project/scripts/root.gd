@@ -1,5 +1,7 @@
 extends Node2D
 
+# Ideas: Adding pause menu, adding an autowalking button
+
 var currentbackground = null # Holds the currently loaded background
 
 func _ready() -> void:
@@ -14,6 +16,16 @@ func _ready() -> void:
 			Mountain_loop()
 		elif chosen == "valley":
 			Valley_loop()
+
+# Connect this from the Button's "pressed()" signal in the Node tab
+func _on_autowalk_pressed() -> void:
+	Global.auto_walk = !Global.auto_walk
+	
+	# Update the button text
+	if Global.auto_walk:
+		$Character/Camera2D/CanvasLayer/Autowalk.text = "Auto-Walk: ON"
+	else:
+		$Character/Camera2D/CanvasLayer/Autowalk.text = "Auto-Walk: OFF"
 
 # Background Manager
 
@@ -73,11 +85,11 @@ var tempo: float = 0.25
 # ─── Loops ──────────────────────────────────────────────────────────
 
 # Updated loops: Added movement flag to only play music once the character is moving
-# Error: Function is not listening to the movement flag and just playing
+# Error: Function is not listening to the movement flag and just playing (FIxed)
 
 
 func forest_loop(): # Drums
-	var pattern = [36, 42, 36, 42, 36, 42, 36, 42] 
+	var pattern = [36, 42, 38, 42, 36, 36, 38, 42] 
 	while Global.selected_theme == "forest": 
 		for i in range(pattern.size()):
 			
@@ -85,29 +97,29 @@ func forest_loop(): # Drums
 			while not Global.is_moving and Global.selected_theme == "forest":
 				await get_tree().create_timer(0.1).timeout 
 			
-			play_note(pattern[i], 0.2, 9) 
+			play_note(pattern[i], 0.1, 9) 
 			await get_tree().create_timer(tempo).timeout
 
-func Mountain_loop(): # Violin
-	change_instrument(0, 40)
-	var pattern = [36, 42, 36, 42, 36, 42, 36, 42] 
-	while Global.selected_theme == "mountians":
+func Mountain_loop(): # Trumpet
+	change_instrument(0, 60)
+	var pattern = [67, 67, 72, 67, 64, 60] 
+	while Global.selected_theme == "mountains":
 		for i in range(pattern.size()):
 			
 			while not Global.is_moving and Global.selected_theme == "mountains":
 				await get_tree().create_timer(0.1).timeout
 			
-			play_note(pattern[i], 0.4, 0) 
+			play_note(pattern[i], 0.3, 0) 
 			await get_tree().create_timer(tempo).timeout 
 
 func Valley_loop():  # Guitar
 	change_instrument(0, 0)
-	var pattern = [36, 42, 36, 42, 36, 42, 36, 42] 
+	var pattern = [60, 64, 67, 72, 67, 64] 
 	while Global.selected_theme == "valley":
 		for i in range(pattern.size()):
 			
 			while not Global.is_moving and Global.selected_theme == "valley":
 				await get_tree().create_timer(0.1).timeout
 			
-			play_note(pattern[i], 0.3, 0) 
+			play_note(pattern[i], 0.5, 0) 
 			await get_tree().create_timer(tempo).timeout
