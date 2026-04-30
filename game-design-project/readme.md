@@ -1,26 +1,33 @@
-# Godot MIDI Player for Godot Engine 4.x
+**All assets, gd. script files and scenes are in this folder.**
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/E1E44AWTA)
+## Game Premise:
 
-Software MIDI player library for Godot Engine 4.2 later
+- You are given the choice between 3 areas (forest, valley and mountains), depending on the location, a different loop of music will play.
+- There is a counter at the top to display the distance walked
+- There is an autowalk button that will move the character for you
+- If you tire of one area you can switch with [P] as displayed at the top right
+- There is no end condition to the game or goal. Just a nice walk with good scenery.
 
-## for Godot Engine 3
 
-[see this repository](https://bitbucket.org/arlez80/godot-midi-player)
+### Scripts:
+1. **character.gd** - contains all the movement features for the character and flags for the music
+2. **global.gd** - contains all the defaults flags that are interchanged with the other external nodes (mainly just root and character)
+3. **main_men.gd** - contains everything needed for the menu (canvaslayer with buttons and title label)
+4. **root.gd** - all the scripting for the MIDI, connects the boolean variables to flag unique functions to trigger.
 
-## Demo
+### Scenes:
+1. **Character.tcsn** - Has all the nodes connected (Animated sprite sheet (tuned))
+2. **Forest.tcsn** - Contains the moving image layers and sprites for the forest.
+3. **mountains.tscn** - Contains the moving image layers and sprites for the mountains.
+4. **valley.tscn** - Contains the moving image layers and sprites for the valley.
+5. **main_me.tscn** - Layered image with all the buttons.
+6. **root.tscn** - Contains MIDI Node, Camera (Canvas layers tied to it), world boundry
 
-* [download](https://bitbucket.org/arlez80/godot-midi-player-g4/downloads/demo.zip)
-	* This demo can get MIDIInput events. You can play using MIDI keyboards!
-* BGM "failyland_gm.mid" from [IvyMaze]( http://ivymaze.sakura.ne.jp/ )
-* Youtube: [Demo #1](https://www.youtube.com/watch?v=SdrU4uRepVs)
-* Youtube: [Demo #2](https://www.youtube.com/watch?v=nn21P3eI4hs)
-* Youtube: [Demo #3](https://www.youtube.com/watch?v=dAYfFH-Fq2o)
-
-## License
-
-MIT License
-
-## Author
-
-* @arlez80 あるる / きのもと 結衣 ( Yui Kinomoto )
+### Asset Packs:
+1. **FreeKnight** - Contains the sprites pack for the character
+2. **Pixel Art Forest** - Pack with forest sprites (layers)
+3. **Pixel Art Hill** - Contains valley sprites (layers)
+4. **Glacial-mountains-parallax** - Contains the layers for the mountains
+5. **mainmen.webp** - Contains the layered image I used for the main menu
+6. **TimGM6mb.sf2** - contains the sf file for the MIDI audio
+7. **Tiny RPG Character Asset Pack** - Unused assets (had a plan for enemies but didnt do it)
