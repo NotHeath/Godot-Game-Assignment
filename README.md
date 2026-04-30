@@ -1,5 +1,7 @@
 **All assets, gd. script files and scenes are in this folder.**
 
+https://youtu.be/mwG8BfOPCIk - Linked YouTube video for it
+
 ## Game Premise:
 
 - You are given the choice between 3 areas (forest, valley and mountains), depending on the location, a different loop of music will play.
